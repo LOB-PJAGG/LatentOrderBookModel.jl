@@ -24,12 +24,14 @@ function extract_mid_price(rdpp, lob_density)
     mid_price_ind = 2
     while (lob_density[mid_price_ind] > 0) | (lob_density[mid_price_ind+1]>lob_density[mid_price_ind])
         mid_price_ind += 1
+        if mid_price_ind > rdpp.M
+            mid_price_ind += 1
+            break
+        end
     end
-
     y1 = lob_density[mid_price_ind-1]
     y2 = lob_density[mid_price_ind]
     x1 = rdpp.x[mid_price_ind-1]
-
     mid_price = round(-(y1 * rdpp.Δx)/(y2 - y1) + x1, digits = 2)
     return mid_price
 end
